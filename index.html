@@ -1,60 +1,260 @@
 <!DOCTYPE html>
-<html>
+<!--
+  Advanced Calculator Application
+  Features: Glass morphism design, memory functions, scientific operations
+  Technologies: HTML5, CSS3, JavaScript, Math.js
+-->
+<html lang="en">
   <head>
+    <!-- Character encoding for proper text display -->
     <meta charset="UTF-8" />
+    
+    <!-- Responsive design viewport configuration -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculator</title>
+    
+    <!-- Page title displayed in browser tab -->
+    <title>Advanced Calculator - Glass Morphism Design</title>
+    
+    <!-- External stylesheet for calculator styling and animations -->
     <link rel="stylesheet" href="styles.css" />
+    
+    <!-- Math.js library for safe mathematical expression evaluation -->
+    <!-- CDN: Cloudflare for reliable delivery and performance -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.1/math.min.js"></script>
   </head>
   <body>
+    <!-- Main calculator container with glass morphism styling -->
     <div class="calculator">
-      <!-- Initially the input field is empty, so it is disabled -->
-      <input type="text" id="display" disabled />
+      <!-- 
+        CALCULATOR DISPLAY SECTION
+        Main input field showing current calculation and results
+        - Disabled to prevent direct typing (buttons only)
+        - Right-aligned text for traditional calculator feel
+        - Supports keyboard input via JavaScript event listeners
+      -->
+      <input 
+        type="text" 
+        id="display" 
+        placeholder="0" 
+        disabled 
+        aria-label="Calculator display showing current calculation"
+      />
 
-      <!-- Memory Display -->
-      <div class="memory-display" id="memoryDisplay">M: 0</div>
-      
-      <!-- The Calculator's body -->
-      <div class="buttons">
-        <!-- Memory Functions Row -->
-        <button onclick="memoryClear()" class="memory-btn">MC</button>
-        <button onclick="memoryRecall()" class="memory-btn">MR</button>
-        <button onclick="memoryAdd()" class="memory-btn">M+</button>
-        <button onclick="memorySubtract()" class="memory-btn">M-</button>
-        
-        <!-- Advanced Functions Row -->
-        <button onclick="squareRoot()">√</button>
-        <button onclick="percentage()">%</button>
-        <button onclick="clearDisplay()">C</button>
-        <button onclick="deleteLast()">⌫</button>
-
-        <!-- Parentheses and Division -->
-        <button onclick="appendValue( '(' )">(</button>
-        <button onclick="appendValue( ')' )">)</button>
-        <button onclick="power()">x²</button>
-        <button onclick="appendValue('/')">÷</button>
-
-        <button onclick="appendValue('7')">7</button>
-        <button onclick="appendValue('8')">8</button>
-        <button onclick="appendValue('9')">9</button>
-        <button onclick="appendValue('*')">×</button>
-
-        <button onclick="appendValue('4')">4</button>
-        <button onclick="appendValue('5')">5</button>
-        <button onclick="appendValue('6')">6</button>
-        <button onclick="appendValue('-')">−</button>
-
-        <button onclick="appendValue('1')">1</button>
-        <button onclick="appendValue('2')">2</button>
-        <button onclick="appendValue('3')">3</button>
-        <button onclick="appendValue('+')">+</button>
-
-        <button onclick="appendValue('0')" class="zero-btn">0</button>
-        <button onclick="appendValue('.')">.</button>
-        <button onclick="calculate()" class="equals-btn">=</button>
+      <!-- 
+        MEMORY STATUS DISPLAY
+        Shows current memory value and provides visual feedback
+        - Opacity changes based on memory state (dim when 0, bright when active)
+        - Updated dynamically by JavaScript memory functions
+      -->
+      <div 
+        class="memory-display" 
+        id="memoryDisplay" 
+        aria-label="Memory status display"
+      >
+        M: 0
       </div>
-    </div>
+      
+      <!-- 
+        CALCULATOR BUTTON GRID
+        4-column CSS Grid layout containing all calculator buttons
+        Categories:
+        1. Memory Functions (MC, MR, M+, M-)
+        2. Advanced Functions (√, %, x², parentheses)
+        3. Basic Operations (+, -, ×, ÷)
+        4. Numbers (0-9) and decimal point
+        5. Control Functions (Clear, Delete, Equals)
+      -->
+      <div class="buttons">
+        <!-- 
+          MEMORY FUNCTIONS ROW
+          Memory operations for storing and recalling values
+          - MC: Memory Clear (resets memory to 0)
+          - MR: Memory Recall (displays stored memory value)
+          - M+: Memory Add (adds current display to memory)
+          - M-: Memory Subtract (subtracts current display from memory)
+        -->
+        <button 
+          onclick="memoryClear()" 
+          class="memory-btn"
+          title="Memory Clear - Reset memory to 0"
+          aria-label="Memory Clear"
+        >
+          MC
+        </button>
+        <button 
+          onclick="memoryRecall()" 
+          class="memory-btn"
+          title="Memory Recall - Display stored memory value"
+          aria-label="Memory Recall"
+        >
+          MR
+        </button>
+        <button 
+          onclick="memoryAdd()" 
+          class="memory-btn"
+          title="Memory Add - Add current value to memory"
+          aria-label="Memory Add"
+        >
+          M+
+        </button>
+        <button 
+          onclick="memorySubtract()" 
+          class="memory-btn"
+          title="Memory Subtract - Subtract current value from memory"
+          aria-label="Memory Subtract"
+        >
+          M-
+        </button>
+        
+        <!-- 
+          ADVANCED FUNCTIONS & CONTROL ROW
+          Scientific operations and display control functions
+        -->
+        <button 
+          onclick="squareRoot()"
+          title="Square Root - Calculate √x"
+          aria-label="Square Root"
+        >
+          √
+        </button>
+        <button 
+          onclick="percentage()"
+          title="Percentage - Convert to percentage (÷100)"
+          aria-label="Percentage"
+        >
+          %
+        </button>
+        <button 
+          onclick="clearDisplay()"
+          title="Clear - Reset calculator display"
+          aria-label="Clear Display"
+        >
+          C
+        </button>
+        <button 
+          onclick="deleteLast()"
+          title="Backspace - Delete last character"
+          aria-label="Delete Last Character"
+        >
+          ⌫
+        </button>
+
+        <!-- 
+          PARENTHESES AND ADVANCED OPERATIONS ROW
+          Grouping operations and power functions
+        -->
+        <button 
+          onclick="appendValue('(')"
+          title="Left Parenthesis - Start grouping"
+          aria-label="Left Parenthesis"
+        >
+          (
+        </button>
+        <button 
+          onclick="appendValue(')')"
+          title="Right Parenthesis - End grouping"
+          aria-label="Right Parenthesis"
+        >
+          )
+        </button>
+        <button 
+          onclick="power()"
+          title="Square - Calculate x²"
+          aria-label="Square Power"
+        >
+          x²
+        </button>
+        <button 
+          onclick="appendValue('/')"
+          title="Division - Divide operation"
+          aria-label="Division"
+        >
+          ÷
+        </button>
+
+        <!-- 
+          NUMBER PAD ROWS 7-9
+          Top row of number pad with multiplication
+        -->
+        <button onclick="appendValue('7')" title="Number 7" aria-label="Seven">7</button>
+        <button onclick="appendValue('8')" title="Number 8" aria-label="Eight">8</button>
+        <button onclick="appendValue('9')" title="Number 9" aria-label="Nine">9</button>
+        <button 
+          onclick="appendValue('*')"
+          title="Multiplication - Multiply operation"
+          aria-label="Multiplication"
+        >
+          ×
+        </button>
+
+        <!-- 
+          NUMBER PAD ROWS 4-6
+          Middle row of number pad with subtraction
+        -->
+        <button onclick="appendValue('4')" title="Number 4" aria-label="Four">4</button>
+        <button onclick="appendValue('5')" title="Number 5" aria-label="Five">5</button>
+        <button onclick="appendValue('6')" title="Number 6" aria-label="Six">6</button>
+        <button 
+          onclick="appendValue('-')"
+          title="Subtraction - Subtract operation"
+          aria-label="Subtraction"
+        >
+          −
+        </button>
+
+        <!-- 
+          NUMBER PAD ROWS 1-3
+          Lower row of number pad with addition
+        -->
+        <button onclick="appendValue('1')" title="Number 1" aria-label="One">1</button>
+        <button onclick="appendValue('2')" title="Number 2" aria-label="Two">2</button>
+        <button onclick="appendValue('3')" title="Number 3" aria-label="Three">3</button>
+        <button 
+          onclick="appendValue('+')"
+          title="Addition - Add operation"
+          aria-label="Addition"
+        >
+          +
+        </button>
+
+        <!-- 
+          BOTTOM ROW
+          Zero (double-width), decimal point, and equals button
+        -->
+        <button 
+          onclick="appendValue('0')" 
+          class="zero-btn"
+          title="Number 0"
+          aria-label="Zero"
+        >
+          0
+        </button>
+        <button 
+          onclick="appendValue('.')"
+          title="Decimal Point"
+          aria-label="Decimal Point"
+        >
+          .
+        </button>
+        <button 
+          onclick="calculate()" 
+          class="equals-btn"
+          title="Calculate - Execute calculation"
+          aria-label="Calculate Result"
+        >
+          =
+        </button>
+      </div> <!-- End of buttons grid -->
+    </div> <!-- End of calculator container -->
+    
+    <!-- 
+      CALCULATOR JAVASCRIPT
+      Main application logic and functionality
+      - Mathematical operations and calculations
+      - Memory management functions
+      - Keyboard event handling
+      - Display updates and error handling
+    -->
     <script src="script.js"></script>
   </body>
 </html>
