@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.1/math.min.js"></script>
+  </head>
+  <body>
+    <div class="calculator">
+      <!-- Initially the input field is empty, so it is disabled -->
+      <input type="text" id="display" disabled />
+
+      <!-- Memory Display -->
+      <div class="memory-display" id="memoryDisplay">M: 0</div>
+      
+      <!-- The Calculator's body -->
+      <div class="buttons">
+        <!-- Memory Functions Row -->
+        <button onclick="memoryClear()" class="memory-btn">MC</button>
+        <button onclick="memoryRecall()" class="memory-btn">MR</button>
+        <button onclick="memoryAdd()" class="memory-btn">M+</button>
+        <button onclick="memorySubtract()" class="memory-btn">M-</button>
+        
+        <!-- Advanced Functions Row -->
+        <button onclick="squareRoot()">√</button>
+        <button onclick="percentage()">%</button>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="deleteLast()">⌫</button>
+
+        <!-- Parentheses and Division -->
+        <button onclick="appendValue( '(' )">(</button>
+        <button onclick="appendValue( ')' )">)</button>
+        <button onclick="power()">x²</button>
+        <button onclick="appendValue('/')">÷</button>
+
+        <button onclick="appendValue('7')">7</button>
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button onclick="appendValue('*')">×</button>
+
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+        <button onclick="appendValue('-')">−</button>
+
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        <button onclick="appendValue('3')">3</button>
+        <button onclick="appendValue('+')">+</button>
+
+        <button onclick="appendValue('0')" class="zero-btn">0</button>
+        <button onclick="appendValue('.')">.</button>
+        <button onclick="calculate()" class="equals-btn">=</button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+/**
+ * Advanced Calculator Stylesheet
+ * Features: Glass morphism design, animated backgrounds, neumorphism buttons
+ */
+
+/* ==================== GLOBAL STYLES & ANIMATED BACKGROUND ==================== */
+
+/**
+ * Main body container with animated gradient background
+ * Creates a dynamic, colorful backdrop with floating particle effects
+ */
+body {
+  /* Flexbox centering for calculator positioning */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  
+  /* Multi-color animated gradient background */
+  background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+  background-size: 400% 400%; /* Large size for smooth animation */
+  animation: gradientShift 15s ease infinite;
+  
+  /* Typography and layout */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  overflow: hidden; /* Hide scrollbars for clean look */
+  position: relative;
+}
+
+/**
+ * Gradient animation keyframes
+ * Smoothly shifts background colors across the screen
+ */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/**
+ * Floating particle overlay effect
+ * Creates subtle light orbs that move across the background
+ */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  /* Multiple radial gradients for particle effect */
+  background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+  animation: float 20s ease-in-out infinite;
+}
+
+/**
+ * Floating animation for particle effects
+ * Gentle movement with slight rotation for organic feel
+ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(1deg); }
+  66% { transform: translateY(10px) rotate(-1deg); }
+}
+
+/* ==================== CALCULATOR CONTAINER ==================== */
+
+/**
+ * Main calculator container with glass morphism effect
+ * Semi-transparent with backdrop blur for modern appearance
+ */
+.calculator {
+  /* Glass morphism styling */
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+  backdrop-filter: blur(20px); /* Background blur effect */
+  border-radius: 25px;
+  
+  /* Layered shadow effects for depth */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), 
+              0 0 0 1px rgba(255, 255, 255, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  
+  /* Layout and positioning */
+  padding: 30px;
+  width: 380px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 10; /* Above background effects */
+  
+  /* Subtle glow animation */
+  animation: calculatorGlow 4s ease-in-out infinite alternate;
+}
+
+/**
+ * Calculator glow animation
+ * Subtle pulsing effect that enhances the glass morphism
+ */
+@keyframes calculatorGlow {
+  0% { box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
+  100% { box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+}
+
+/* ==================== DISPLAY ELEMENTS ==================== */
+
+/**
+ * Main calculator display screen
+ * Neumorphism design with inset shadow for depth
+ */
+#display {
+  width: 94%;
+  height: 60px;
+  font-size: 2rem;
+  font-weight: 300;
+  text-align: right; /* Right-aligned like traditional calculators */
+  padding: 15px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 15px;
+  
+  /* Neumorphism gradient background */
+  background: linear-gradient(145deg, #f0f0f0, #e6e6e6);
+  /* Inset shadows for pressed-in effect */
+  box-shadow: inset 5px 5px 10px #d1d1d1, inset -5px -5px 10px #ffffff;
+  
+  color: #333;
+  outline: none; /* Remove focus outline */
+}
+
+/**
+ * Memory status display
+ * Shows current memory value with visual feedback
+ */
+.memory-display {
+  background: linear-gradient(145deg, #e8e8e8, #f5f5f5);
+  border-radius: 10px;
+  padding: 8px 15px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  text-align: left;
+  
+  /* Subtle inset shadow */
+  box-shadow: inset 2px 2px 5px #d1d1d1, inset -2px -2px 5px #ffffff;
+  /* Smooth opacity transitions for memory state changes */
+  transition: opacity 0.3s ease;
+}
+
+/* ==================== BUTTON LAYOUT ==================== */
+
+/**
+ * Button grid container
+ * 4-column layout for calculator buttons
+ */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Equal width columns */
+  gap: 8px; /* Space between buttons */
+}
+
+/* ==================== BUTTON STYLING ==================== */
+
+/**
+ * Base button styling with neumorphism effect
+ * Raised appearance with soft shadows
+ */
+button {
+  padding: 18px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 12px;
+  
+  /* Neumorphism gradient */
+  background: linear-gradient(145deg, #f0f0f0, #e6e6e6);
+  /* Raised shadow effect */
+  box-shadow: 4px 4px 8px #d1d1d1, -4px -4px 8px #ffffff;
+  
+  cursor: pointer;
+  transition: all 0.2s ease; /* Smooth hover transitions */
+  color: #333;
+  min-height: 50px; /* Consistent button height */
+}
+
+/**
+ * Button hover effect
+ * Lifts button and enhances shadow
+ */
+button:hover {
+  transform: translateY(-2px); /* Lift effect */
+  box-shadow: 7px 7px 15px #d1d1d1, -7px -7px 15px #ffffff;
+}
+
+/**
+ * Button active/pressed effect
+ * Inset shadow for pressed appearance
+ */
+button:active {
+  transform: translateY(0); /* Return to normal position */
+  box-shadow: inset 3px 3px 6px #d1d1d1, inset -3px -3px 6px #ffffff;
+}
+
+/* ==================== SPECIALIZED BUTTON CATEGORIES ==================== */
+
+/**
+ * Memory function buttons (MC, MR, M+, M-)
+ * Teal gradient for easy identification
+ */
+.memory-btn {
+  background: linear-gradient(145deg, #4ecdc4, #44a08d);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem; /* Slightly smaller text for memory labels */
+}
+
+.memory-btn:hover {
+  background: linear-gradient(145deg, #45b7aa, #3d8b7a);
+}
+
+/**
+ * Advanced mathematical function buttons (√, %, x²)
+ * Pink/purple gradient for scientific operations
+ */
+button[onclick*="squareRoot"], button[onclick*="percentage"], button[onclick*="power"] {
+  background: linear-gradient(145deg, #f093fb, #f5576c);
+  color: white;
+  font-weight: 600;
+}
+
+button[onclick*="squareRoot"]:hover, button[onclick*="percentage"]:hover, button[onclick*="power"]:hover {
+  background: linear-gradient(145deg, #e085f0, #f04458);
+}
+
+/**
+ * Basic operator buttons (+, -, ×, ÷)
+ * Blue gradient for mathematical operations
+ */
+button[onclick*="+"], button[onclick*="-"], button[onclick*="*"], button[onclick*="/"] {
+  background: linear-gradient(145deg, #667eea, #764ba2);
+  color: white;
+  font-weight: 600;
+}
+
+button[onclick*="+"]:hover, button[onclick*="-"]:hover, button[onclick*="*"]:hover, button[onclick*="/"]:hover {
+  background: linear-gradient(145deg, #5a6fd8, #6a42a0);
+}
+
+/**
+ * Equals button styling
+ * Matches operator color scheme for consistency
+ */
+.equals-btn {
+  background: linear-gradient(145deg, #667eea, #764ba2);
+  color: white;
+  font-weight: 600;
+  grid-row: span 1; /* Single row height */
+}
+
+.equals-btn:hover {
+  background: linear-gradient(145deg, #5a6fd8, #6a42a0);
+}
+
+/**
+ * Zero button special layout
+ * Spans two columns for traditional calculator feel
+ */
+.zero-btn {
+  grid-column: span 2; /* Double width */
+}
+
+/**
+ * Clear button styling
+ * Red gradient to indicate destructive action
+ */
+button[onclick*="clearDisplay"] {
+  background: linear-gradient(145deg, #ff6b6b, #ee5a52);
+  color: white;
+  font-weight: 600;
+}
+
+button[onclick*="clearDisplay"]:hover {
+  background: linear-gradient(145deg, #ff5252, #e53e3e);
+}
+
+/* ==================== END OF CALCULATOR STYLESHEET ==================== */
